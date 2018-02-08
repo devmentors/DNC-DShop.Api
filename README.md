@@ -1,2 +1,2 @@
-# DNC.DShop.ApiGateway
-[Distributed .NET Core] API Gateway for DShop project.
+# DNC-DShop.ApiGateway
+[Distributed .NET Core] API for DShop project.
