@@ -16,4 +16,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="..\..\..\DNC-DShop.Common\src\DShop.Common\DShop.Common.csproj" />
+    <ProjectReference Include="..\..\..\DNC-DShop.Messages\src\DShop.Messages\DShop.Messages.csproj" />
+  </ItemGroup>
+  
 </Project>
