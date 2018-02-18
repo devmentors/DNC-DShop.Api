@@ -1,5 +1,9 @@
 ﻿using System;
-using DShop.Common.Builders;
+using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using DShop.Common.Mvc;
+using DShop.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,14 +19,22 @@ namespace DShop.Api
         }
 
         public IConfiguration Configuration { get; }
+        public IContainer Container { get; private set; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().AddDefaultJsonOptions();
 
-            var serviceProvider = ServiceBuilder.GetServiceProvider(services);
-            return serviceProvider;
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
+                    .AsImplementedInterfaces();
+            builder.Populate(services);
+            builder.AddRabbitMq();
+
+            Container = builder.Build();
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

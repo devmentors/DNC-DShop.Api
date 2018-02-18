@@ -1,4 +1,4 @@
-﻿using DShop.Common.Builders;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace DShop.Api
@@ -11,12 +11,9 @@ namespace DShop.Api
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            ServiceBuilder
-                .Create<Startup>(args)
-                .WithPort(5000)
-                .WithAutofac(containerBuilder => { })
-                .WithNoDatabase()
-                .WithServiceBus("service-bus", subscribeBus => { })
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseUrls("http://*:5000")
                 .Build();
     }
 }
