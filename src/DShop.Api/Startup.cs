@@ -2,12 +2,14 @@
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DShop.Api.ServiceForwarders;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestEase;
 
 namespace DShop.Api
 {
@@ -32,6 +34,7 @@ namespace DShop.Api
                     .AsImplementedInterfaces();
             builder.Populate(services);
             builder.AddRabbitMq();
+            builder.RegisterInstance(RestClient.For<ICustomersStorage>("http://localhost:5008"));
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);

@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace DShop.Api.Controllers
 {
-    [Route("api/[controller]")]
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private readonly IProductsApi _productsApi;
         private readonly IBusPublisher _busPublisher;
@@ -20,15 +19,15 @@ namespace DShop.Api.Controllers
             _busPublisher = busPublisher;
         }
 
-        [HttpPut]
+        [HttpPut("")]
         public async Task CreateAsync([FromBody] CreateProduct command)
             => await _busPublisher.PublishCommandAsync(command);
 
-        [HttpPost]
+        [HttpPost("")]
         public async Task UpdateAsync([FromBody] UpdateProduct command)
             => await _busPublisher.PublishCommandAsync(command);
 
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task DeleteAsync([FromBody] DeleteProduct command)
             => await _busPublisher.PublishCommandAsync(command);
     }
