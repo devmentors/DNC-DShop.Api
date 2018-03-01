@@ -7,6 +7,7 @@ using RestEase;
 
 namespace DShop.Api.ServiceForwarders
 {
+    [SerializationMethods(Query = QuerySerializationMethod.Serialized)]
     public interface ICustomersStorage
     {
         [Get("customers/{id}")]

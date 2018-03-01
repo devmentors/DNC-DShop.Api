@@ -5,6 +5,7 @@ using Autofac.Extensions.DependencyInjection;
 using DShop.Api.ServiceForwarders;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
+using DShop.Common.RestEase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,7 +35,11 @@ namespace DShop.Api
                     .AsImplementedInterfaces();
             builder.Populate(services);
             builder.AddRabbitMq();
-            builder.RegisterInstance(RestClient.For<ICustomersStorage>("http://localhost:5008"));
+            builder.RegisterInstance(
+                new RestClient("http://localhost:5008/")
+                {
+                    RequestQueryParamSerializer = new QueryParamSerializer()
+                }.For<ICustomersStorage>());
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
