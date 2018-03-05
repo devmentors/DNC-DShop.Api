@@ -1,5 +1,6 @@
 ﻿using DShop.Api.ServiceForwarders;
 using DShop.Common.RabbitMq;
+using DShop.Messages.Commands.Customers;
 using DShop.Services.Storage.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,22 +10,24 @@ namespace DShop.Api.Controllers
 {
     public class CustomersController : BaseController
     {
-        private readonly IBusPublisher _busPublisher;
         private readonly ICustomersStorage _storage;
 
         public CustomersController(IBusPublisher busPublisher,
-            ICustomersStorage storage)
+            ICustomersStorage storage) : base(busPublisher)
         {
-            _busPublisher = busPublisher;
             _storage = storage;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> Get([FromQuery] BrowseCustomers query)
-            => OkOrNotFound(await _storage.BrowseAsync(query));
+            => GetAsync(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => OkOrNotFound(await _storage.GetAsync(id));
+            => GetAsync(await _storage.GetAsync(id));
+
+        [HttpPost("")]
+        public async Task<IActionResult> Post([FromBody] CreateCustomer command)
+            => await PostAsync(command);
     }
 }
