@@ -45,12 +45,21 @@ namespace DShop.Api
                     .AsImplementedInterfaces();
             builder.Populate(services);
             builder.AddRabbitMq();
-            builder.RegisterInstance(
-                new RestClient("http://localhost:5008")
-                {
-                    RequestQueryParamSerializer = new QueryParamSerializer()
-                }.For<ICustomersStorage>());
+
             builder.RegisterInstance(RestClient.For<IOperationsStorage>("http://localhost:5008"));
+
+            builder.RegisterInstance(new RestClient("http://localhost:5008")
+            {
+                RequestQueryParamSerializer = new QueryParamSerializer()
+            }
+            .For<ICustomersStorage>());        
+
+            builder.RegisterInstance(new RestClient("http://localhost:5008/")
+            {
+                RequestQueryParamSerializer = new QueryParamSerializer()
+            }
+            .For<IOrdersStorage>());
+
             Container = builder.Build();
 
             return new AutofacServiceProvider(Container);
