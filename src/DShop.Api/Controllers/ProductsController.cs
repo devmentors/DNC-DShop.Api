@@ -19,11 +19,11 @@ namespace DShop.Api.Controllers
 
         [HttpPut("")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
-            => await PostAsync(command);
+            => await PublishAsync(command);
 
         [HttpPost("")]
         public async Task<IActionResult>  UpdateAsync([FromBody] UpdateProduct command)
-            => await PutAsync(command);
+            => await PublishAsync(command);
 
         [HttpDelete("")]
         public async Task<IActionResult> DeleteAsync([FromBody] DeleteProduct command)

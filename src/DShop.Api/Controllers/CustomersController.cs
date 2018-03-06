@@ -28,6 +28,6 @@ namespace DShop.Api.Controllers
 
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] CreateCustomer command)
-            => await PostAsync(command);
+            => await PublishAsync(command);
     }
 }

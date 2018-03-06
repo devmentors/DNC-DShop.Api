@@ -1,4 +1,5 @@
 using DShop.Common.RabbitMq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DShop.Api.Controllers
@@ -10,6 +11,7 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet("")]
+        [AllowAnonymous]
         public IActionResult Get() => Ok("DShop API");
     }
 }

@@ -1,15 +1,23 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DShop.Common.RabbitMq;
 using DShop.Common.Types;
 using DShop.Messages.Commands;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DShop.Api.Controllers
 {
     [Route("[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseController : Controller
     {
+        private static readonly string AcceptLanguageHeader = "accept-language";
+        private static readonly string OperationHeader = "x-operation";
+        private static readonly string ResourceHeader = "x-resource";
+        private static readonly string DefaultCulture = "en-us";
         private readonly IBusPublisher _busPublisher;
 
         public BaseController(IBusPublisher busPublisher)
@@ -27,22 +35,56 @@ namespace DShop.Api.Controllers
             return NotFound();
         }
 
-        protected async Task<IActionResult> PostAsync<T>(T command) where T : ICommand 
-            => await PublishAsync(command, ctx => Ok());
-
-        protected async Task<IActionResult> PutAsync<T>(T command) where T : ICommand 
-            => await PublishAsync(command, ctx => NoContent());
-
-        protected async Task<IActionResult> DeleteAsync<T>(T command) where T : ICommand 
-            => await PublishAsync(command, ctx => NoContent());
-
-        private async Task<IActionResult> PublishAsync<T>(T command, 
-            Func<CorrelationContext,IActionResult> response) where T : ICommand 
+        protected IActionResult GetCollectionAsync<T>(T model)
         {
-            var context = new CorrelationContext();
+            if (model != null)
+            {
+                return Ok(model);
+            }
+
+            return NotFound();
+        }
+
+        protected async Task<IActionResult> PublishAsync<T>(T command, 
+            string resource = "") where T : ICommand 
+        {
+            var context = GetContext<T>(resource);
             await _busPublisher.PublishCommandAsync(command, context);
 
-            return response(context);
+            return Accepted(context);
         }
+
+        protected IActionResult Accepted(ICorrelationContext context)
+        {
+            Response.Headers.Add(OperationHeader, $"operations/{context.Id}");
+            if(!string.IsNullOrWhiteSpace(context.Resource))
+            {
+                Response.Headers.Add(ResourceHeader, context.Resource);
+            }
+
+            return base.Accepted();
+        }
+
+        protected ICorrelationContext GetContext<T>(string resource = "") where T : ICommand
+        {
+            var resourceId = Guid.NewGuid();
+            if (!string.IsNullOrWhiteSpace(resource))
+            {
+                resource = $"{resource}/{resourceId}";
+            }
+
+            return CorrelationContext.Create<T>(Guid.NewGuid(), UserId, 
+                resourceId, Request.Path.ToString(), Culture, resource);
+        }
+
+        protected Guid UserId
+            => string.IsNullOrWhiteSpace(User?.Identity?.Name) ? 
+                Guid.Empty : 
+                Guid.Parse(User.Identity.Name);
+
+        protected string Culture 
+            => Request.Headers.ContainsKey(AcceptLanguageHeader) ? 
+                    Request.Headers[AcceptLanguageHeader].First().ToLowerInvariant() :
+                    DefaultCulture;
     }
 }
