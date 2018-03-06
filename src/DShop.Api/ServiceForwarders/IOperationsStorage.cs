@@ -7,6 +7,7 @@ namespace DShop.Api.ServiceForwarders
 {
     public interface IOperationsStorage
     {
+        [AllowAnyStatusCode]
         [Get("operations/{id}")]
         Task<Operation> GetAsync([Path] Guid id);          
     }
