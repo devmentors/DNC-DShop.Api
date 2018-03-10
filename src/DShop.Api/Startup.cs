@@ -49,6 +49,7 @@ namespace DShop.Api
             builder.RegisterServiceForwarder<IOperationsStorage>("storage-service");
             builder.RegisterServiceForwarder<ICustomersStorage>("storage-service");
             builder.RegisterServiceForwarder<IOrdersStorage>("storage-service");
+            builder.RegisterServiceForwarder<IProductsStorage>("storage-service");
             
             Container = builder.Build();
 
