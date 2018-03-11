@@ -19,7 +19,7 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
     }
 }

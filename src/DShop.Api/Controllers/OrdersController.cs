@@ -19,11 +19,11 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
+        public async Task<IActionResult> BrowseAsync([FromQuery] BrowseOrders query)
             => GetAsync(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
         [HttpPost("")]

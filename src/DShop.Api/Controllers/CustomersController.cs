@@ -19,15 +19,15 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Get([FromQuery] BrowseCustomers query)
+        public async Task<IActionResult> BrowseAsync([FromQuery] BrowseCustomers query)
             => GetAsync(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody] CreateCustomer command)
+        public async Task<IActionResult> PostAsync([FromBody] CreateCustomer command)
             => await PublishAsync(command);
     }
 }
