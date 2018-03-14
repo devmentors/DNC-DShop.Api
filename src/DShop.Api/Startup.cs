@@ -46,7 +46,7 @@ namespace DShop.Api
             builder.Populate(services);
             builder.AddRabbitMq();
 
-            builder.RegisterServiceForwarder<IOperationsStorage>("storage-service");
+            builder.RegisterServiceForwarder<IOperationsService>("operations-service");
             builder.RegisterServiceForwarder<ICustomersStorage>("storage-service");
             builder.RegisterServiceForwarder<IOrdersStorage>("storage-service");
             builder.RegisterServiceForwarder<IProductsStorage>("storage-service");
