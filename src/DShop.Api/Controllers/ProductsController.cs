@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestEase;
 using System;
 using System.Threading.Tasks;
+using DShop.Common.Mvc;
 
 namespace DShop.Api.Controllers
 {
@@ -29,13 +30,13 @@ namespace DShop.Api.Controllers
         public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
-        [HttpPost("")]
+        [HttpPost()]
         public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
             => await PublishAsync(command);
 
-        [HttpPut("")]
-        public async Task<IActionResult>  UpdateAsync([FromBody] UpdateProduct command)
-            => await PublishAsync(command);
+        [HttpPut("{id}")]
+        public async Task<IActionResult>  UpdateAsync(Guid id, [FromBody] UpdateProduct command)
+            => await PublishAsync(command.Bind(c => c.Id, id));
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)

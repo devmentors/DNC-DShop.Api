@@ -5,6 +5,7 @@ using DShop.Services.Storage.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using DShop.Common.Mvc;
 
 namespace DShop.Api.Controllers
 {
@@ -24,7 +25,7 @@ namespace DShop.Api.Controllers
 
         [HttpPost("items")]
         public async Task<IActionResult> Post([FromBody] AddProductToCart command)
-            => await PublishAsync(command);
+            => await PublishAsync(command.Bind(c => c.UserId, UserId));
 
         [HttpDelete("items/{productId}")]
         public async Task<IActionResult> Delete(Guid productId)

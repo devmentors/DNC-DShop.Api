@@ -5,6 +5,7 @@ using DShop.Services.Storage.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using DShop.Common.Mvc;
 
 namespace DShop.Api.Controllers
 {
@@ -28,6 +29,6 @@ namespace DShop.Api.Controllers
 
         [HttpPost("")]
         public async Task<IActionResult> PostAsync([FromBody] CreateCustomer command)
-            => await PublishAsync(command);
+            => await PublishAsync(command.Bind(c => c.UserId, UserId));
     }
 }
