@@ -2,6 +2,7 @@
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Products;
 using DShop.Services.Storage.Models.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestEase;
 using System;
@@ -18,24 +19,26 @@ namespace DShop.Api.Controllers
             _storage = storage;
         }
 
-        [HttpGet("")]
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> BrowseAsync([FromQuery] BrowseProducts query)
             => GetAsync(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
-        [HttpPut("")]
+        [HttpPost("")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
             => await PublishAsync(command);
 
-        [HttpPost("")]
+        [HttpPut("")]
         public async Task<IActionResult>  UpdateAsync([FromBody] UpdateProduct command)
             => await PublishAsync(command);
 
-        [HttpDelete("")]
-        public async Task<IActionResult> DeleteAsync([FromBody] DeleteProduct command)
-            => await DeleteAsync(command);
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+            => await PublishAsync(new DeleteProduct(id));
     }
 }
