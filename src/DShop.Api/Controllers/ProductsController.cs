@@ -32,7 +32,7 @@ namespace DShop.Api.Controllers
 
         [HttpPost()]
         public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
-            => await PublishAsync(command);
+            => await PublishAsync(command.BindId(c => c.Id));
 
         [HttpPut("{id}")]
         public async Task<IActionResult>  UpdateAsync(Guid id, [FromBody] UpdateProduct command)

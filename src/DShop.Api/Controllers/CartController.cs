@@ -25,7 +25,7 @@ namespace DShop.Api.Controllers
 
         [HttpPost("items")]
         public async Task<IActionResult> Post([FromBody] AddProductToCart command)
-            => await PublishAsync(command.Bind(c => c.UserId, UserId));
+            => await PublishAsync(command.Bind(c => c.CustomerId, UserId));
 
         [HttpDelete("items/{productId}")]
         public async Task<IActionResult> Delete(Guid productId)

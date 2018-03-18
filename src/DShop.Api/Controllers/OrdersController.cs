@@ -4,6 +4,7 @@ using DShop.Api.ServiceForwarders;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Orders;
 using DShop.Services.Storage.Models.Queries;
+using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DShop.Api.Controllers
@@ -28,6 +29,6 @@ namespace DShop.Api.Controllers
 
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] CreateOrder command)
-            => await PublishAsync(command);
+            => await PublishAsync(command.BindId(c => c.Id));
     }
 }

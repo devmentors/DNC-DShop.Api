@@ -19,7 +19,7 @@ namespace DShop.Api.Controllers
             _storage = storage;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> BrowseAsync([FromQuery] BrowseCustomers query)
             => GetAsync(await _storage.BrowseAsync(query));
 
@@ -29,6 +29,6 @@ namespace DShop.Api.Controllers
 
         [HttpPost("")]
         public async Task<IActionResult> PostAsync([FromBody] CreateCustomer command)
-            => await PublishAsync(command.Bind(c => c.UserId, UserId));
+            => await PublishAsync(command.Bind(c => c.Id, UserId));
     }
 }
