@@ -21,10 +21,12 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> BrowseAsync([FromQuery] BrowseProducts query)
             => GetAsync(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
