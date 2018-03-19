@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DShop.Api.Framework;
 using DShop.Common.RabbitMq;
 using DShop.Common.Types;
 using DShop.Messages.Commands;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DShop.Api.Controllers
 {
     [Route("[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Auth]
     public abstract class BaseController : Controller
     {
         private static readonly string AcceptLanguageHeader = "accept-language";

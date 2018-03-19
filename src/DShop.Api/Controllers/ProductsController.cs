@@ -8,9 +8,11 @@ using RestEase;
 using System;
 using System.Threading.Tasks;
 using DShop.Common.Mvc;
+using DShop.Api.Framework;
 
 namespace DShop.Api.Controllers
 {
+    [AdminAuth]
     public class ProductsController : BaseController
     {
         private readonly IProductsStorage _storage;
@@ -30,7 +32,7 @@ namespace DShop.Api.Controllers
         public async Task<IActionResult> GetAsync(Guid id)
             => GetAsync(await _storage.GetAsync(id));
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
             => await PublishAsync(command.BindId(c => c.Id));
 

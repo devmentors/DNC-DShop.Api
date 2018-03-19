@@ -31,6 +31,7 @@ namespace DShop.Api
         {
             services.AddMvc().AddDefaultJsonOptions();
             services.AddJwt();
+            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", cors => 
