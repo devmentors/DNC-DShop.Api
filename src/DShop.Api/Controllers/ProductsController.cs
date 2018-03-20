@@ -34,11 +34,13 @@ namespace DShop.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateProduct command)
-            => await PublishAsync(command.BindId(c => c.Id), command.Id, "products");
+            => await PublishAsync(command.BindId(c => c.Id), 
+                resourceId: command.Id, resource: "products");
 
         [HttpPut("{id}")]
         public async Task<IActionResult>  Put(Guid id, [FromBody] UpdateProduct command)
-            => await PublishAsync(command.Bind(c => c.Id, id), command.Id, "products");
+            => await PublishAsync(command.Bind(c => c.Id, id), 
+                resourceId: command.Id, resource: "products");
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)

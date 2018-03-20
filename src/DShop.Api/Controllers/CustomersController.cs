@@ -31,6 +31,7 @@ namespace DShop.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCustomer command)
-            => await PublishAsync(command.Bind(c => c.Id, UserId), command.Id, "customers");
+            => await PublishAsync(command.Bind(c => c.Id, UserId), 
+                resourceId: command.Id, resource: "customers");
     }
 }
