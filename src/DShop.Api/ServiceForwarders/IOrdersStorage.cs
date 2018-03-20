@@ -1,4 +1,5 @@
-﻿using DShop.Services.Storage.Models.Orders;
+﻿using DShop.Common.Types;
+using DShop.Services.Storage.Models.Orders;
 using DShop.Services.Storage.Models.Queries;
 using RestEase;
 using System;
@@ -16,6 +17,6 @@ namespace DShop.Api.ServiceForwarders
 
         [AllowAnyStatusCode]
         [Get("customers")]
-        Task<IEnumerable<Order>> BrowseAsync([Query] BrowseOrders query);
+        Task<PagedResult<Order>> BrowseAsync([Query] BrowseOrders query);
     }
 }

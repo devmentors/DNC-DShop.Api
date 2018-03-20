@@ -21,7 +21,7 @@ namespace DShop.Api.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
-            => GetAsync(await _storage.GetAsync(UserId));
+            => Single(await _storage.GetAsync(UserId));
 
         [HttpPost("items")]
         public async Task<IActionResult> Post([FromBody] AddProductToCart command)

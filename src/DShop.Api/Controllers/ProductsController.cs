@@ -24,24 +24,24 @@ namespace DShop.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> BrowseAsync([FromQuery] BrowseProducts query)
-            => GetAsync(await _storage.BrowseAsync(query));
+        public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
+            => Collection(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAsync(Guid id)
-            => GetAsync(await _storage.GetAsync(id));
+        public async Task<IActionResult> Get(Guid id)
+            => Single(await _storage.GetAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateProduct command)
-            => await PublishAsync(command.BindId(c => c.Id));
+        public async Task<IActionResult> Post([FromBody] CreateProduct command)
+            => await PublishAsync(command.BindId(c => c.Id), command.Id, "products");
 
         [HttpPut("{id}")]
-        public async Task<IActionResult>  UpdateAsync(Guid id, [FromBody] UpdateProduct command)
-            => await PublishAsync(command.Bind(c => c.Id, id));
+        public async Task<IActionResult>  Put(Guid id, [FromBody] UpdateProduct command)
+            => await PublishAsync(command.Bind(c => c.Id, id), command.Id, "products");
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
             => await PublishAsync(new DeleteProduct(id));
     }
 }

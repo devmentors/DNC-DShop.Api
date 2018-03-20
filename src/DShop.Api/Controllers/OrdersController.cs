@@ -6,6 +6,7 @@ using DShop.Messages.Commands.Orders;
 using DShop.Services.Storage.Models.Queries;
 using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using DShop.Api.Framework;
 
 namespace DShop.Api.Controllers
 {
@@ -19,16 +20,23 @@ namespace DShop.Api.Controllers
             _storage = storage;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> BrowseAsync([FromQuery] BrowseOrders query)
-            => GetAsync(await _storage.BrowseAsync(query));
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
+        {
+            if (!IsAdmin)
+            {
+                query.CustomerId = UserId;
+            }
+
+            return Collection(await _storage.BrowseAsync(query));
+        }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(Guid id)
-            => GetAsync(await _storage.GetAsync(id));
+        public async Task<IActionResult> Get(Guid id)
+            => Single(await _storage.GetAsync(id), x => x.Customer.Id == UserId || IsAdmin);
 
-        [HttpPost("")]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateOrder command)
-            => await PublishAsync(command.BindId(c => c.Id));
+            => await PublishAsync(command.BindId(c => c.Id), command.Id, "orders");
     }
 }

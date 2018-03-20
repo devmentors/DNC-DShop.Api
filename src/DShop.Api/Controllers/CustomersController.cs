@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using DShop.Common.Mvc;
+using DShop.Api.Framework;
 
 namespace DShop.Api.Controllers
 {
@@ -20,15 +21,16 @@ namespace DShop.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> BrowseAsync([FromQuery] BrowseCustomers query)
-            => GetAsync(await _storage.BrowseAsync(query));
+        [AdminAuth]
+        public async Task<IActionResult> Get([FromQuery] BrowseCustomers query)
+            => Collection(await _storage.BrowseAsync(query));
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(Guid id)
-            => GetAsync(await _storage.GetAsync(id));
+        public async Task<IActionResult> Get(Guid id)
+            => Single(await _storage.GetAsync(id), x => x.Id == UserId || IsAdmin);
 
-        [HttpPost("")]
-        public async Task<IActionResult> PostAsync([FromBody] CreateCustomer command)
-            => await PublishAsync(command.Bind(c => c.Id, UserId));
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CreateCustomer command)
+            => await PublishAsync(command.Bind(c => c.Id, UserId), command.Id, "customers");
     }
 }

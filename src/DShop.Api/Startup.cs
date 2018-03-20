@@ -17,7 +17,7 @@ namespace DShop.Api
 {
     public class Startup
     {
-        private static readonly string[] Headers = new []{"x-operation", "x-resource"};
+        private static readonly string[] Headers = new []{"X-Operation", "X-Resource", "X-Total-Count"};
         public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
