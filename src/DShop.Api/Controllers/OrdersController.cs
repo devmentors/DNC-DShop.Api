@@ -41,8 +41,8 @@ namespace DShop.Api.Controllers
                 resourceId: command.Id, resource: "orders");
 
         [HttpPost("{id}/complete")]
-        public async Task<IActionResult> Complete([FromBody] CompleteOrder command)
-            => await PublishAsync(command.BindId(c => c.Id).Bind(c => c.CustomerId, UserId), 
+        public async Task<IActionResult> Complete(Guid id, [FromBody] CompleteOrder command)
+            => await PublishAsync(command.Bind(c => c.Id, id).Bind(c => c.CustomerId, UserId), 
                 resourceId: command.Id, resource: "orders");
 
         [HttpDelete("{id}")]
