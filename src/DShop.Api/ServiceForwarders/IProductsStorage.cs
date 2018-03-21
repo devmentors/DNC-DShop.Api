@@ -17,6 +17,6 @@ namespace DShop.Api.ServiceForwarders
 
         [AllowAnyStatusCode]
         [Get("/products")]
-        Task<PagedResult<Product>> BrowseAsync(BrowseProducts query);
+        Task<PagedResult<Product>> BrowseAsync([Query] BrowseProducts query);
     }
 }

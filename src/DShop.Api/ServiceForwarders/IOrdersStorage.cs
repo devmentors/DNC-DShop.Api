@@ -12,11 +12,11 @@ namespace DShop.Api.ServiceForwarders
     public interface IOrdersStorage
     {
         [AllowAnyStatusCode]
-        [Get("customers/{id}")]
+        [Get("orders/{id}")]
         Task<OrderDetails> GetAsync([Path] Guid id);
 
         [AllowAnyStatusCode]
-        [Get("customers")]
+        [Get("orders")]
         Task<PagedResult<Order>> BrowseAsync([Query] BrowseOrders query);
     }
 }
