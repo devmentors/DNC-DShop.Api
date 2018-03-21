@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -18,15 +19,14 @@ namespace DShop.Api
     public class Startup
     {
         private static readonly string[] Headers = new []{"X-Operation", "X-Resource", "X-Total-Count"};
-        public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+        public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddDefaultJsonOptions();

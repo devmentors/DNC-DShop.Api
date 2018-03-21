@@ -22,14 +22,7 @@ namespace DShop.Api.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
-        {
-            if (!IsAdmin)
-            {
-                query.CustomerId = UserId;
-            }
-
-            return Collection(await _storage.BrowseAsync(query));
-        }
+           => Collection(await _storage.BrowseAsync(query.Bind(q => q.CustomerId, UserId)));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
