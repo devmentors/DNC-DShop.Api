@@ -7,14 +7,17 @@
 ### ================= IDENTITY API =======================
 POST http://localhost:5002/sign-up
 content-type: application/json
+
 {
 	"email": "test@gmail.com",
-	"password": "123456"
+	"password": "123456",
+	"role": "admin"
 }
 
 ###
 POST http://localhost:5002/sign-in
 content-type: application/json
+
 {
 	"email": "test@gmail.com",
 	"password": "123456"
@@ -29,6 +32,7 @@ authorization: {{token}}
 POST http://localhost:5000/cart/items
 authorization: {{token}}
 content-type: application/json
+
 {
 	"productId": "{{productId}}",
 	"quantity": 2
@@ -55,6 +59,7 @@ authorization: {{token}}
 POST http://localhost:5000/customers
 authorization: {{token}}
 content-type: application/json
+
 {
 	"firstName": "John",
 	"lastName": "Smith",
@@ -102,6 +107,7 @@ authorization: {{token}}
 POST http://localhost:5000/products
 authorization: {{token}}
 content-type: application/json
+
 {
 	"name": "Product X",
 	"description": "Awesome product",
@@ -113,6 +119,7 @@ content-type: application/json
 POST http://localhost:5000/products/{{productId}}
 authorization: {{token}}
 content-type: application/json
+
 {
 	"name": "Updated Product X",
 	"description": "Awesome updated product",
