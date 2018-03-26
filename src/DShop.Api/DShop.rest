@@ -1,0 +1,124 @@
+@token = Bearer
+@productId = 02da4be6-af85-4a71-b911-3470b5c86250
+@customerId = 02da4be6-af85-4a71-b911-3470b5c86250
+@operationId = 02da4be6-af85-4a71-b911-3470b5c86250
+@orderId = 02da4be6-af85-4a71-b911-3470b5c86250
+
+### ================= IDENTITY API =======================
+POST http://localhost:5002/sign-up
+content-type: application/json
+{
+	"email": "test@gmail.com",
+	"password": "123456"
+}
+
+###
+POST http://localhost:5002/sign-in
+content-type: application/json
+{
+	"email": "test@gmail.com",
+	"password": "123456"
+}
+
+
+### ================= CART API =======================
+GET http://localhost:5000/cart
+authorization: {{token}}
+
+###
+POST http://localhost:5000/cart/items
+authorization: {{token}}
+content-type: application/json
+{
+	"productId": "{{productId}}",
+	"quantity": 2
+}
+
+###
+DELETE http://localhost:5000/cart/items/{{productId}}
+authorization: {{token}}
+
+### 
+DELETE http://localhost:5000/cart/clear
+authorization: {{token}}
+
+
+### ================= CUSTOMERS API =======================
+GET http://localhost:5000/customers
+authorization: {{token}}
+
+###
+GET http://localhost:5000/customers/{{customerId}}
+authorization: {{token}}
+
+###
+POST http://localhost:5000/customers
+authorization: {{token}}
+content-type: application/json
+{
+	"firstName": "John",
+	"lastName": "Smith",
+	"address": "DNC 3",
+	"country": "Poland"
+}
+
+
+### ================= OPERATIONS API =======================
+GET http://localhost:5000/operations/{{operationId}}
+authorization: {{token}}
+
+
+### ================= ORDERS API =======================
+GET http://localhost:5000/orders?customerId={{customerId}}
+authorization: {{token}}
+
+###
+GET http://localhost:5000/orders/{{orderId}}
+authorization: {{token}}
+
+###
+POST http://localhost:5000/orders
+authorization: {{token}}
+
+###
+POST http://localhost:5000/orders/{{orderId}}/complete
+authorization: {{token}}
+
+###
+DELETE http://localhost:5000/orders
+authorization: {{token}}
+
+
+### ================= PRODUCTS API =======================
+
+GET http://localhost:5000/products
+authorization: {{token}}
+
+###
+GET http://localhost:5000/products/{{productId}}
+authorization: {{token}}
+
+###
+POST http://localhost:5000/products
+authorization: {{token}}
+content-type: application/json
+{
+	"name": "Product X",
+	"description": "Awesome product",
+	"vendor": "Product Owner",
+	"price": 2500
+}
+
+###
+POST http://localhost:5000/products/{{productId}}
+authorization: {{token}}
+content-type: application/json
+{
+	"name": "Updated Product X",
+	"description": "Awesome updated product",
+	"price": 2501
+}
+
+###
+DELETE http://localhost:5000/products/{{productId}}
+authorization: {{token}}
