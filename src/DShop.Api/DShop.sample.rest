@@ -6,7 +6,7 @@ POST http://localhost:5002/sign-up
 content-type: application/json
 
 {
-	"email": "dnc-wdi@mailinator.com",
+	"email": "dnc-user@mailinator.com",
 	"password": "secret"
 }
 
@@ -15,7 +15,7 @@ POST http://localhost:5002/sign-in
 content-type: application/json
 
 {
-	"email": "dnc-wdi@mailinator.com",
+	"email": "dnc-admin@mailinator.com",
 	"password": "secret"
 }
 
@@ -68,3 +68,7 @@ content-type: application/json
 
 {
 }
+
+###
+GET http://localhost:5000/orders/{{orderId}}
+authorization: Bearer {{token}}
