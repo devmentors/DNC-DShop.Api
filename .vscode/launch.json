@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/DShop.Api/bin/Debug/netcoreapp2.0/DShop.Api.dll",
+            "program": "${workspaceFolder}/src/DShop.Api/bin/Debug/netcoreapp2.1/DShop.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/DShop.Api",
             "stopAtEntry": false,
