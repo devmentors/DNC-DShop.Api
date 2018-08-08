@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using RestEase;
-using DShop.Services.Storage.Models.Operations;
+using DShop.Api.Models.Operations;
 
-namespace DShop.Api.ServiceForwarders
+namespace DShop.Api.Services
 {
     public interface IOperationsService
     {

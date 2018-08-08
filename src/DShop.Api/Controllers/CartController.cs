@@ -1,7 +1,7 @@
-using DShop.Api.ServiceForwarders;
+using DShop.Api.Services;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Customers;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -11,17 +11,17 @@ namespace DShop.Api.Controllers
 {
     public class CartController : BaseController
     {
-        private readonly ICartsStorage _storage;
+        private readonly ICustomersService _customersService;
 
         public CartController(IBusPublisher busPublisher,
-            ICartsStorage storage) : base(busPublisher)
+            ICustomersService customersService) : base(busPublisher)
         {
-            _storage = storage;
+            _customersService = customersService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
-            => Single(await _storage.GetAsync(UserId));
+            => Single(await _customersService.GetCartAsync(UserId));
 
         [HttpPost("items")]
         public async Task<IActionResult> Post([FromBody] AddProductToCart command)

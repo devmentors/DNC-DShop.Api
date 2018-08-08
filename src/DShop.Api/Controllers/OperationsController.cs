@@ -1,7 +1,7 @@
-﻿using DShop.Api.ServiceForwarders;
+﻿using DShop.Api.Services;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Customers;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,16 +12,16 @@ namespace DShop.Api.Controllers
     [AllowAnonymous]
     public class OperationsController : BaseController
     {
-        private readonly IOperationsService _service;
+        private readonly IOperationsService _operationsService;
 
         public OperationsController(IBusPublisher busPublisher,
-            IOperationsService service) : base(busPublisher)
+            IOperationsService operationsService) : base(busPublisher)
         {
-            _service = service;
+            _operationsService = operationsService;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => Single(await _service.GetAsync(id));
+            => Single(await _operationsService.GetAsync(id));
     }
 }

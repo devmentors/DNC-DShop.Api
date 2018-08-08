@@ -9,11 +9,12 @@
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\..\..\DNC-DShop.Common\src\DShop.Common\DShop.Common.csproj" />
     <ProjectReference Include="..\..\..\DNC-DShop.Messages\src\DShop.Messages\DShop.Messages.csproj" />
-    <ProjectReference Include="..\..\..\DNC-DShop.Services.Storage\src\DShop.Services.Storage.Models\DShop.Services.Storage.Models.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="DShop.Common" Version="1.0.*" />
     <PackageReference Include="DShop.Messages" Version="1.0.*" />
-    <PackageReference Include="DShop.Services.Storage.Models" Version="1.0.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DShop.Api.Models\DShop.Api.Models.csproj" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DShop.Api.ServiceForwarders;
+using DShop.Api.Services;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Orders;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Queries;
 using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using DShop.Api.Framework;
@@ -12,21 +12,21 @@ namespace DShop.Api.Controllers
 {
     public class OrdersController : BaseController
     {
-        private readonly IOrdersStorage _storage;
+        private readonly IOrdersService _ordersService;
 
         public OrdersController(IBusPublisher busPublisher,
-            IOrdersStorage storage) : base(busPublisher)
+            IOrdersService ordersService) : base(busPublisher)
         {
-            _storage = storage;
+            _ordersService = ordersService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
-           => Collection(await _storage.BrowseAsync(query.Bind(q => q.CustomerId, UserId)));
+           => Collection(await _ordersService.BrowseAsync(query.Bind(q => q.CustomerId, UserId)));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => Single(await _storage.GetAsync(id), x => x.Customer.Id == UserId || IsAdmin);
+            => Single(await _ordersService.GetAsync(id), x => x.Customer.Id == UserId || IsAdmin);
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateOrder command)

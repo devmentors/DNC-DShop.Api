@@ -1,15 +1,15 @@
 ﻿using DShop.Common.Types;
-using DShop.Services.Storage.Models.Orders;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Orders;
+using DShop.Api.Models.Queries;
 using RestEase;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DShop.Api.ServiceForwarders
+namespace DShop.Api.Services
 {
     [SerializationMethods(Query = QuerySerializationMethod.Serialized)]
-    public interface IOrdersStorage
+    public interface IOrdersService
     {
         [AllowAnyStatusCode]
         [Get("orders/{id}")]

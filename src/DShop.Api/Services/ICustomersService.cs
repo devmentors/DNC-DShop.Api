@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DShop.Common.Types;
-using DShop.Services.Storage.Models.Customers;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Customers;
+using DShop.Api.Models.Queries;
 using RestEase;
 
-namespace DShop.Api.ServiceForwarders
+namespace DShop.Api.Services
 {
     [SerializationMethods(Query = QuerySerializationMethod.Serialized)]
-    public interface ICustomersStorage
+    public interface ICustomersService
     {
         [AllowAnyStatusCode]
         [Get("customers/{id}")]
@@ -18,5 +18,9 @@ namespace DShop.Api.ServiceForwarders
         [AllowAnyStatusCode]
         [Get("customers")]
         Task<PagedResult<Customer>> BrowseAsync([Query] BrowseCustomers query);
+
+        [AllowAnyStatusCode]
+        [Get("carts/{id}")]
+        Task<Cart> GetCartAsync([Path] Guid id);  
     }
 }

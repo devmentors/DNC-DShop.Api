@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DShop.Api.ServiceForwarders;
+using DShop.Api.Services;
 using DShop.Common.Authentication;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
@@ -48,10 +48,9 @@ namespace DShop.Api
             builder.AddRabbitMq();
 
             builder.RegisterServiceForwarder<IOperationsService>("operations-service");
-            builder.RegisterServiceForwarder<ICustomersStorage>("storage-service");
-            builder.RegisterServiceForwarder<ICartsStorage>("storage-service");
-            builder.RegisterServiceForwarder<IOrdersStorage>("storage-service");
-            builder.RegisterServiceForwarder<IProductsStorage>("storage-service");
+            builder.RegisterServiceForwarder<ICustomersService>("customers-service");
+            builder.RegisterServiceForwarder<IOrdersService>("orders-service");
+            builder.RegisterServiceForwarder<IProductsService>("products-service");
             
             Container = builder.Build();
 

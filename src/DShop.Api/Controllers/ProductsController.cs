@@ -1,7 +1,7 @@
-﻿using DShop.Api.ServiceForwarders;
+﻿using DShop.Api.Services;
 using DShop.Common.RabbitMq;
 using DShop.Messages.Commands.Products;
-using DShop.Services.Storage.Models.Queries;
+using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestEase;
@@ -15,22 +15,23 @@ namespace DShop.Api.Controllers
     [AdminAuth]
     public class ProductsController : BaseController
     {
-        private readonly IProductsStorage _storage;
+        private readonly IProductsService _productsService;
 
-        public ProductsController(IBusPublisher busPublisher, IProductsStorage storage) : base(busPublisher)
+        public ProductsController(IBusPublisher busPublisher, 
+            IProductsService productsService) : base(busPublisher)
         {
-            _storage = storage;
+            _productsService = productsService;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
-            => Collection(await _storage.BrowseAsync(query));
+            => Collection(await _productsService.BrowseAsync(query));
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Get(Guid id)
-            => Single(await _storage.GetAsync(id));
+            => Single(await _productsService.GetAsync(id));
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateProduct command)
