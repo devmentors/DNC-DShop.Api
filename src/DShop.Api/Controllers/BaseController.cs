@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DShop.Api.Framework;
+using DShop.Common.Messages;
 using DShop.Common.RabbitMq;
 using DShop.Common.Types;
-using DShop.Messages.Commands;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -63,11 +63,11 @@ namespace DShop.Api.Controllers
             return Ok(pagedResult.Items);
         }
 
-        protected async Task<IActionResult> PublishAsync<T>(T command, 
+        protected async Task<IActionResult> SendAsync<T>(T command, 
             Guid? resourceId = null, string resource = "") where T : ICommand 
         {
             var context = GetContext<T>(resourceId, resource);
-            await _busPublisher.PublishCommandAsync(command, context);
+            await _busPublisher.SendAsync(command, context);
 
             return Accepted(context);
         }

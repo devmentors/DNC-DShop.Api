@@ -1,6 +1,6 @@
 using DShop.Api.Services;
 using DShop.Common.RabbitMq;
-using DShop.Messages.Commands.Customers;
+using DShop.Api.Messages.Commands;
 using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,14 +25,14 @@ namespace DShop.Api.Controllers
 
         [HttpPost("items")]
         public async Task<IActionResult> Post([FromBody] AddProductToCart command)
-            => await PublishAsync(command.Bind(c => c.CustomerId, UserId));
+            => await SendAsync(command.Bind(c => c.CustomerId, UserId));
 
         [HttpDelete("items/{productId}")]
         public async Task<IActionResult> Delete(Guid productId)
-            => await PublishAsync(new DeleteProductFromCart(UserId, productId));
+            => await SendAsync(new DeleteProductFromCart(UserId, productId));
 
         [HttpDelete("clear")]
         public async Task<IActionResult> Clear()
-            => await PublishAsync(new ClearCart(UserId));
+            => await SendAsync(new ClearCart(UserId));
     }
 }

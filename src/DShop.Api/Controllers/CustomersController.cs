@@ -1,6 +1,6 @@
 ﻿using DShop.Api.Services;
 using DShop.Common.RabbitMq;
-using DShop.Messages.Commands.Customers;
+using DShop.Api.Messages.Commands;
 using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,7 +31,7 @@ namespace DShop.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCustomer command)
-            => await PublishAsync(command.Bind(c => c.Id, UserId), 
+            => await SendAsync(command.Bind(c => c.Id, UserId), 
                 resourceId: command.Id, resource: "customers");
     }
 }

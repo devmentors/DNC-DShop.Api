@@ -1,8 +1,8 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMjRkZWQ1MS01NTJlLTRkMDItYjUwYS04YTQwYzZiMDNhMmQiLCJ1bmlxdWVfbmFtZSI6ImUyNGRlZDUxLTU1MmUtNGQwMi1iNTBhLThhNDBjNmIwM2EyZCIsImp0aSI6IjZkZTU1MTUwLTY4OGMtNDUzMS1iMDg3LTM1NjhkYTI3NTdkMCIsImlhdCI6IjE1MzM3MjI3MDU3NTMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbiIsIm5iZiI6MTUzMzcyMjcwNSwiZXhwIjoxNTMzNzI0NTA1LCJpc3MiOiJkc2hvcC1pZGVudGl0eS1zZXJ2aWNlIn0.DS9tDzCR5LEmrM7hG_RVv1geA4SgJ58AY9iFnLGndl8
+@token = xxxxxxxxxxxxxxxxxx
 @customerId = xxxxxxxxxxxxxxxxxx
 @operationId = xxxxxxxxxxxxxxxxxx
-@productId = 87d85722-47a9-4569-bea4-b92ae6243053
-@orderId = 9765f00c-fa4a-4aec-9d1e-7a7ecb910b70
+@productId = xxxxxxxxxxxxxxxxxx
+@orderId = xxxxxxxxxxxxxxxxxx
 
 ### ================= IDENTITY API =======================
 POST http://localhost:5002/sign-up
@@ -10,7 +10,7 @@ content-type: application/json
 
 {
 	"email": "user1@mailinator.com",
-	"password": "123456",
+	"password": "secret",
 	"role": "admin"
 }
 
@@ -20,7 +20,7 @@ content-type: application/json
 
 {
 	"email": "user1@mailinator.com",
-	"password": "123456"
+	"password": "secret"
 }
 
 

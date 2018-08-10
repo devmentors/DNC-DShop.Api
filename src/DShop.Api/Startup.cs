@@ -5,14 +5,15 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DShop.Api.Services;
 using DShop.Common.Authentication;
+using DShop.Common.Dispatchers;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
 using DShop.Common.RestEase;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestEase;
 
 namespace DShop.Api
 {
@@ -41,12 +42,13 @@ namespace DShop.Api
                             .AllowCredentials()
                             .WithExposedHeaders(Headers));
             });
+
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
             builder.Populate(services);
             builder.AddRabbitMq();
-
+            builder.AddDispatchers();
             builder.RegisterServiceForwarder<IOperationsService>("operations-service");
             builder.RegisterServiceForwarder<ICustomersService>("customers-service");
             builder.RegisterServiceForwarder<IOrdersService>("orders-service");

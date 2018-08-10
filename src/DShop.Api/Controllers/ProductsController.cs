@@ -1,6 +1,6 @@
 ﻿using DShop.Api.Services;
 using DShop.Common.RabbitMq;
-using DShop.Messages.Commands.Products;
+using DShop.Api.Messages.Commands;
 using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,16 +35,16 @@ namespace DShop.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateProduct command)
-            => await PublishAsync(command.BindId(c => c.Id), 
+            => await SendAsync(command.BindId(c => c.Id), 
                 resourceId: command.Id, resource: "products");
 
         [HttpPut("{id}")]
         public async Task<IActionResult>  Put(Guid id, [FromBody] UpdateProduct command)
-            => await PublishAsync(command.Bind(c => c.Id, id), 
+            => await SendAsync(command.Bind(c => c.Id, id), 
                 resourceId: command.Id, resource: "products");
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
-            => await PublishAsync(new DeleteProduct(id));
+            => await SendAsync(new DeleteProduct(id));
     }
 }

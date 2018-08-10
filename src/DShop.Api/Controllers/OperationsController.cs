@@ -1,6 +1,6 @@
 ﻿using DShop.Api.Services;
 using DShop.Common.RabbitMq;
-using DShop.Messages.Commands.Customers;
+using DShop.Api.Messages.Commands;
 using DShop.Api.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
