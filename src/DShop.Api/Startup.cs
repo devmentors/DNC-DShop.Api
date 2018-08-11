@@ -4,7 +4,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DShop.Api.Services;
-using DShop.Common.AppMetrics;
 using DShop.Common.Authentication;
 using DShop.Common.Dispatchers;
 using DShop.Common.Mvc;
@@ -32,7 +31,6 @@ namespace DShop.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc();
-            services.AddAppMetrics();
             services.AddJwt();
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddCors(options =>
@@ -69,7 +67,6 @@ namespace DShop.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseAppMetrics(applicationLifetime);
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseCors("CorsPolicy");
