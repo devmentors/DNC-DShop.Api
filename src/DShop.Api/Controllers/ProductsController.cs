@@ -34,12 +34,12 @@ namespace DShop.Api.Controllers
             => Single(await _productsService.GetAsync(id));
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateProduct command)
+        public async Task<IActionResult> Post(CreateProduct command)
             => await SendAsync(command.BindId(c => c.Id), 
                 resourceId: command.Id, resource: "products");
 
         [HttpPut("{id}")]
-        public async Task<IActionResult>  Put(Guid id, [FromBody] UpdateProduct command)
+        public async Task<IActionResult>  Put(Guid id, UpdateProduct command)
             => await SendAsync(command.Bind(c => c.Id, id), 
                 resourceId: command.Id, resource: "products");
 

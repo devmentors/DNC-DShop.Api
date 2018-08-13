@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DShop.Api.Controllers
 {
     [Route("[controller]")]
+    [ApiController]
     [Auth]
     public abstract class BaseController : Controller
     {

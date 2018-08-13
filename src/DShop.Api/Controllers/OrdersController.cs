@@ -29,12 +29,12 @@ namespace DShop.Api.Controllers
             => Single(await _ordersService.GetAsync(id), x => x.Customer.Id == UserId || IsAdmin);
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateOrder command)
+        public async Task<IActionResult> Post(CreateOrder command)
             => await SendAsync(command.BindId(c => c.Id).Bind(c => c.CustomerId, UserId), 
                 resourceId: command.Id, resource: "orders");
 
         [HttpPost("{id}/complete")]
-        public async Task<IActionResult> Complete(Guid id, [FromBody] CompleteOrder command)
+        public async Task<IActionResult> Complete(Guid id, CompleteOrder command)
             => await SendAsync(command.Bind(c => c.Id, id).Bind(c => c.CustomerId, UserId), 
                 resourceId: command.Id, resource: "orders");
 

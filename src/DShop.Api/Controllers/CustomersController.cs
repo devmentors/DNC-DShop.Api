@@ -30,7 +30,7 @@ namespace DShop.Api.Controllers
             => Single(await _customersService.GetAsync(id), x => x.Id == UserId || IsAdmin);
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateCustomer command)
+        public async Task<IActionResult> Post(CreateCustomer command)
             => await SendAsync(command.Bind(c => c.Id, UserId), 
                 resourceId: command.Id, resource: "customers");
     }
