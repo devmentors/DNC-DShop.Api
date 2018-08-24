@@ -3,8 +3,10 @@ using System;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Consul;
 using DShop.Api.Services;
 using DShop.Common.Authentication;
+using DShop.Common.Consul;
 using DShop.Common.Dispatchers;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
@@ -31,6 +33,7 @@ namespace DShop.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc();
+            services.AddConsul();
             services.AddJwt();
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddCors(options =>
@@ -60,8 +63,8 @@ namespace DShop.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            IApplicationLifetime applicationLifetime, IConsulClient client)
         {
             if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
@@ -70,9 +73,15 @@ namespace DShop.Api
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseCors("CorsPolicy");
+            app.UseServiceId();
             app.UseMvc();
             app.UseRabbitMq();
-            applicationLifetime.ApplicationStopped.Register(() => Container.Dispose());
+            var consulServiceId = app.UseConsul();
+            applicationLifetime.ApplicationStopped.Register(() => 
+            { 
+                client.Agent.ServiceDeregister(consulServiceId); 
+                Container.Dispose(); 
+            });
         }
     }
 }
