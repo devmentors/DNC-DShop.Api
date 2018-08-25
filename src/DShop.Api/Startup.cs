@@ -45,18 +45,18 @@ namespace DShop.Api
                             .AllowCredentials()
                             .WithExposedHeaders(Headers));
             });
-
+            services.RegisterServiceForwarder<IOperationsService>("operations-service");
+            services.RegisterServiceForwarder<ICustomersService>("customers-service");
+            services.RegisterServiceForwarder<IOrdersService>("orders-service");
+            services.RegisterServiceForwarder<IProductsService>("products-service");
+            
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                     .AsImplementedInterfaces();
             builder.Populate(services);
             builder.AddRabbitMq();
             builder.AddDispatchers();
-            builder.RegisterServiceForwarder<IOperationsService>("operations-service");
-            builder.RegisterServiceForwarder<ICustomersService>("customers-service");
-            builder.RegisterServiceForwarder<IOrdersService>("orders-service");
-            builder.RegisterServiceForwarder<IProductsService>("products-service");
-            
+                    
             Container = builder.Build();
 
             return new AutofacServiceProvider(Container);
