@@ -2,6 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using DShop.Common.Metrics;
 using DShop.Common.Mvc;
+using DShop.Common.Vault;
 using System;
 
 namespace DShop.Api
@@ -16,6 +17,7 @@ namespace DShop.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseVault()
                 .UseLockbox()
                 .UseAppMetrics();
     }
