@@ -91,8 +91,9 @@ namespace DShop.Api.Controllers
                 resource = $"{resource}/{resourceId}";
             }
 
-            return CorrelationContext.Create<T>(Guid.NewGuid(), UserId, 
-                resourceId ?? Guid.Empty, Request.Path.ToString(), Culture, resource);
+            return CorrelationContext.Create<T>(Guid.NewGuid(), UserId, resourceId ?? Guid.Empty, 
+               HttpContext.TraceIdentifier, HttpContext.Connection.Id, 
+               Request.Path.ToString(), Culture, resource);
         }
 
         protected bool IsAdmin

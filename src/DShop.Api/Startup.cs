@@ -11,6 +11,7 @@ using DShop.Common.Dispatchers;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
 using DShop.Common.RestEase;
+using DShop.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ namespace DShop.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc();
+            services.AddSwaggerDocs();
             services.AddConsul();
             services.AddJwt();
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
@@ -70,6 +72,9 @@ namespace DShop.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAllForwardedHeaders();
+            app.UseSwaggerDocs();
             app.UseErrorHandler();
             app.UseAuthentication();
             app.UseCors("CorsPolicy");
