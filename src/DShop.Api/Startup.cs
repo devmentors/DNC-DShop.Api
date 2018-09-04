@@ -10,6 +10,7 @@ using DShop.Common.Consul;
 using DShop.Common.Dispatchers;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
+using DShop.Common.Redis;
 using DShop.Common.RestEase;
 using DShop.Common.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -22,14 +23,14 @@ namespace DShop.Api
 {
     public class Startup
     {
-        private static readonly string[] Headers = new []{"X-Operation", "X-Resource", "X-Total-Count"};
+        private static readonly string[] Headers = new []{ "X-Operation", "X-Resource", "X-Total-Count" };
         public IContainer Container { get; private set; }
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        public IConfiguration Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -37,6 +38,7 @@ namespace DShop.Api
             services.AddSwaggerDocs();
             services.AddConsul();
             services.AddJwt();
+            services.AddRedis();
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddCors(options =>
             {
@@ -81,6 +83,7 @@ namespace DShop.Api
             app.UseServiceId();
             app.UseMvc();
             app.UseRabbitMq();
+            
             var consulServiceId = app.UseConsul();
             applicationLifetime.ApplicationStopped.Register(() => 
             { 
