@@ -4,6 +4,7 @@ using DShop.Common.Messages;
 
 namespace DShop.Api.Messages.Commands
 {
+    [MessageNamespace("customers")]
     public class AddProductToCart : ICommand
     {
         public Guid CustomerId { get; }

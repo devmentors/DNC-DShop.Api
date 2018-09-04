@@ -4,6 +4,7 @@ using DShop.Common.Messages;
 
 namespace DShop.Api.Messages.Commands
 {
+    [MessageNamespace("products")]
 	public class DeleteProduct : ICommand
 	{
         public Guid Id { get; }

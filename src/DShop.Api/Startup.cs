@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Consul;
 using DShop.Api.Services;
+using DShop.Common;
 using DShop.Common.Authentication;
 using DShop.Common.Consul;
 using DShop.Common.Dispatchers;
@@ -68,7 +69,8 @@ namespace DShop.Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            IApplicationLifetime applicationLifetime, IConsulClient client)
+            IApplicationLifetime applicationLifetime, IConsulClient client,
+            IStartupInitializer startupInitializer)
         {
             if (env.IsDevelopment() || env.EnvironmentName == "local")
             {
@@ -90,6 +92,8 @@ namespace DShop.Api
                 client.Agent.ServiceDeregister(consulServiceId); 
                 Container.Dispose(); 
             });
+
+            startupInitializer.InitializeAsync();
         }
     }
 }

@@ -4,6 +4,7 @@ using DShop.Common.Messages;
 
 namespace DShop.Api.Messages.Commands
 {
+    [MessageNamespace("orders")]
     public class CancelOrder : ICommand
     {
         public Guid Id { get; }
