@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMTg5ZDc1NzNjZmI0MTMxOTlhMmZhNThiOWVmNmVmYiIsInVuaXF1ZV9uYW1lIjoiYjE4OWQ3NTczY2ZiNDEzMTk5YTJmYTU4YjllZjZlZmIiLCJqdGkiOiJlMDJlNzYyMS00MmRkLTQ3ZGMtYTU5ZC02YTdlNDJkNzgxMDQiLCJpYXQiOiIxNTM2MDYxNzM1MTM0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZiI6MTUzNjA2MTczNSwiZXhwIjoxNTM2MDYzNTM1LCJpc3MiOiJkc2hvcC1pZGVudGl0eS1zZXJ2aWNlIn0.SI4-Q5ED6rZ37iOxJYstxQbDfkjXeUPbt3lf8FOLGL8
+@token = xxxxxxxxxxxxxxxxxx
 @customerId = xxxxxxxxxxxxxxxxxx
 @operationId = xxxxxxxxxxxxxxxxxx
 @productId = xxxxxxxxxxxxxxxxxx
@@ -42,9 +42,7 @@ content-type: application/json
 DELETE http://localhost:5000/cart/items/{{productId}}
 authorization: Bearer {{token}}
 
-### 
-DELETE http://localhost:5000/cart/clear
-authorization: Bearer {{token}}
+###
 
 
 ### ================= CUSTOMERS API =======================

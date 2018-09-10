@@ -10,7 +10,7 @@ branches:
 before_script:
   - chmod -R a+x scripts
 script:
-  - ./scripts/build.sh
+  - ./scripts/dotnet-build.sh
 after_success:
   - ./scripts/dotnet-publish.sh
   - ./scripts/docker-publish.sh
@@ -18,3 +18,6 @@ notifications:
   email:
     on_success: never
     on_failure: always
+
+
+
