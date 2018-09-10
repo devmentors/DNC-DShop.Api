@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk AS builder
 WORKDIR /app
 
 ARG sln=DShop.Api.sln
@@ -7,24 +7,21 @@ ARG models=src/DShop.Api.Models
 ARG configuration=Release
 ARG feed='--source "https://api.nuget.org/v3/index.json" --source "https://www.myget.org/F/dnc-dshop/api/v3/index.json"'
 
-# Copy csproj and restore as distinct layers
 COPY ${sln} ./
 COPY ./${api} ./${api}/
 COPY ./${models} ./${models}/
 
 RUN dotnet restore /property:Configuration=${configuration} ${feed}
 
-# Copy everything else and build
 COPY . ./
 RUN dotnet publish ${api} -c ${configuration} -o out ${feed}
 
-# Build runtime image
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 
 ARG api=src/DShop.Api
 
-COPY --from=build-env /app/${api}/out/ .
+COPY --from=builder /app/${api}/out/ .
 
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
