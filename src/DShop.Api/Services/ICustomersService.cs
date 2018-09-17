@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DShop.Common.Types;
 using DShop.Api.Models.Customers;
-using DShop.Api.Models.Queries;
+using DShop.Api.Queries;
 using RestEase;
 
 namespace DShop.Api.Services

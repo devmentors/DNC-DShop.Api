@@ -1,4 +1,4 @@
-namespace DShop.Api.Models.Queries
+namespace DShop.Api.Queries
 {
     public class PagedQuery
     {

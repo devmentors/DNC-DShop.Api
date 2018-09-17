@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DShop.Api.Services;
 using DShop.Common.RabbitMq;
 using DShop.Api.Messages.Commands;
-using DShop.Api.Models.Queries;
+using DShop.Api.Queries;
 using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using DShop.Api.Framework;

@@ -1,6 +1,6 @@
 ﻿using DShop.Common.Types;
 using DShop.Api.Models.Orders;
-using DShop.Api.Models.Queries;
+using DShop.Api.Queries;
 using RestEase;
 using System;
 using System.Collections.Generic;
