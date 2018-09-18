@@ -14,7 +14,7 @@ namespace DShop.Api.Controllers
     [Route("[controller]")]
     [ApiController]
     [Auth]
-    public abstract class BaseController : Controller
+    public abstract class BaseController : ControllerBase
     {
         private static readonly string AcceptLanguageHeader = "accept-language";
         private static readonly string OperationHeader = "X-Operation";
@@ -76,7 +76,7 @@ namespace DShop.Api.Controllers
         protected IActionResult Accepted(ICorrelationContext context)
         {
             Response.Headers.Add(OperationHeader, $"operations/{context.Id}");
-            if(!string.IsNullOrWhiteSpace(context.Resource))
+            if (!string.IsNullOrWhiteSpace(context.Resource))
             {
                 Response.Headers.Add(ResourceHeader, context.Resource);
             }

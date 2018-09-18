@@ -10,6 +10,6 @@ namespace DShop.Api.Models.Operations
         public string State { get; set; }
         public string Resource { get; set; }
         public string Code { get; set; }
-        public string Message { get; set; }
+        public string Reason { get; set; }
     }
 }

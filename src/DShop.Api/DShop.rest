@@ -9,9 +9,9 @@ POST http://localhost:5002/sign-up
 content-type: application/json
 
 {
-	"email": "user1@mailinator.com",
+	"email": "admin1@mailinator.com",
 	"password": "secret",
-	"role": "user"
+	"role": "admin"
 }
 
 ###
@@ -35,7 +35,7 @@ content-type: application/json
 
 {
 	"productId": "{{productId}}",
-	"quantity": 2
+	"quantity": 3
 }
 
 ###
@@ -95,7 +95,7 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:5000/orders
+DELETE http://localhost:5000/orders/{{orderId}}
 authorization: Bearer {{token}}
 
 
