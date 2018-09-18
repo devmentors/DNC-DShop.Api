@@ -30,3 +30,9 @@ Service can be started locally via `dotnet run` (executed in the `/src/DShop.Api
 You can also run the application using [Docker](https://www.docker.com) `docker run --name api -p 5000:5000 --network dshop-network devmentors/dshop.api` (include `-d` to run the container in the background).
 
 It is required to have the basic infrastructure up and running first ([RabbitMQ](https://www.rabbitmq.com), [MongoDB](https://www.mongodb.com) and [Redis](https://redis.io)) in the same docker network named `dshop-network`. Services can be started using [Docker Compose](https://docs.docker.com/compose) (and [this file](https://github.com/devmentors/DNC-DShop/blob/master/compose/docker-compose-infrastructure.yml)) as described [here](https://github.com/devmentors/DNC-DShop).
+
+**What HTTP requests can be sent to the API?**
+----------------
+
+You can find the list of all HTTP requests in `DShop.rest` file placed in the root folder of repository ([here](https://github.com/devmentors/DNC-DShop.Api/blob/master/DShop.rest)). 
+This file is compatible with [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) plugin for [Visual Studio Code](https://code.visualstudio.com). 

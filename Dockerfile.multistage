@@ -1,31 +1,12 @@
-FROM microsoft/dotnet:2.1-sdk AS builder
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /app
-
-ARG sln=DShop.Api.sln
-ARG api=src/DShop.Api
-ARG models=src/DShop.Api.Models
-ARG configuration=Release
-ARG feed='--source "https://api.nuget.org/v3/index.json" --source "https://www.myget.org/F/dnc-dshop/api/v3/index.json"'
-
-COPY ${sln} ./
-COPY ./${api} ./${api}/
-COPY ./${models} ./${models}/
-
-RUN dotnet restore /property:Configuration=${configuration} ${feed}
-
-COPY . ./
-RUN dotnet publish ${api} -c ${configuration} -o out ${feed}
+COPY . .
+RUN dotnet publish src/DShop.Api -c Release -o out --source https://api.nuget.org/v3/index.json --source https://www.myget.org/F/dnc-dshop/api/v3/index.json
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
-
-ARG api=src/DShop.Api
-
-COPY --from=builder /app/${api}/out/ .
-
+COPY --from=build /app/src/DShop.Api/out .
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
-
 EXPOSE 5000
-
 ENTRYPOINT dotnet DShop.Api.dll

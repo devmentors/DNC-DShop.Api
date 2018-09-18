@@ -11,5 +11,6 @@ namespace DShop.Api.Models.Customers
         public string Address { get; set; }
         public string Country { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool Completed { get; set; }
     }
 }
