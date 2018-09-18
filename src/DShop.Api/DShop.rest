@@ -1,4 +1,5 @@
-@token = xxxxxxxxxxxxxxxxxx
+@accessToken = xxxxxxxxxxxxxxxxxx
+@refreshToken = xxxxxxxxxxxxxxxxxx
 @customerId = xxxxxxxxxxxxxxxxxx
 @operationId = xxxxxxxxxxxxxxxxxx
 @productId = xxxxxxxxxxxxxxxxxx
@@ -7,9 +8,9 @@
 ### ================= IDENTITY API =======================
 POST http://localhost:5002/sign-up
 content-type: application/json
-
+ź
 {
-	"email": "admin1@mailinator.com",
+	"email": "user1@mailinator.com",
 	"password": "secret",
 	"role": "admin"
 }
@@ -23,14 +24,40 @@ content-type: application/json
 	"password": "secret"
 }
 
+###
+GET http://localhost:5002/me
+authorization: Bearer {{accessToken}}
+
+###
+POST http://localhost:5002/access-tokens/{{refreshToken}}/refresh
+content-type: application/json
+
+{
+}
+
+###
+POST http://localhost:5002/access-tokens/revoke
+authorization: Bearer {{accessToken}}
+content-type: application/json
+
+{
+}
+
+###
+POST http://localhost:5002/refresh-tokens/{{refreshToken}}/revoke
+authorization: Bearer {{accessToken}}
+content-type: application/json
+
+{
+}
 
 ### ================= CART API =======================
 GET http://localhost:5000/cart
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 POST http://localhost:5000/cart/items
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -40,22 +67,19 @@ content-type: application/json
 
 ###
 DELETE http://localhost:5000/cart/items/{{productId}}
-authorization: Bearer {{token}}
-
-###
-
+authorization: Bearer {{accessToken}}
 
 ### ================= CUSTOMERS API =======================
 GET http://localhost:5000/customers
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 GET http://localhost:5000/customers/{{customerId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 POST http://localhost:5000/customers
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -68,19 +92,19 @@ content-type: application/json
 
 ### ================= OPERATIONS API =======================
 GET http://localhost:5000/operations/{{operationId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ### ================= ORDERS API =======================
 GET http://localhost:5000/orders
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 GET http://localhost:5000/orders/{{orderId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 POST http://localhost:5000/orders
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -88,7 +112,7 @@ content-type: application/json
 
 ###
 POST http://localhost:5000/orders/{{orderId}}/complete
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -96,21 +120,21 @@ content-type: application/json
 
 ###
 DELETE http://localhost:5000/orders/{{orderId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 
 ### ================= PRODUCTS API =======================
 
 GET http://localhost:5000/products
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 GET http://localhost:5000/products/{{productId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 
 ###
 POST http://localhost:5000/products
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -122,7 +146,7 @@ content-type: application/json
 
 ###
 POST http://localhost:5000/products/{{productId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
@@ -133,4 +157,4 @@ content-type: application/json
 
 ###
 DELETE http://localhost:5000/products/{{productId}}
-authorization: Bearer {{token}}
+authorization: Bearer {{accessToken}}
