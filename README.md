@@ -14,7 +14,7 @@ For this particular course, please have a look at the topics being discussed und
 **What is DShop.Api?**
 ----------------
 
-DShop.Api provides an API gateway to the DShop solution.
+DShop.Api provides an API gateway to the [DShop](https://github.com/devmentors/DNC-DShop) solution.
 
 |Branch             |Build status                                                  
 |-------------------|-----------------------------------------------------
