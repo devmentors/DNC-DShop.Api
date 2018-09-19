@@ -167,6 +167,16 @@ authorization: Bearer {{accessToken}}
 GET http://localhost:5002/me
 authorization: Bearer {{accessToken}}
 
+### Change password
+PUT http://localhost:5002/me/password
+authorization: Bearer {{accessToken}}
+content-type: application/json
+
+{
+	"currentPassword": "secret",
+	"newPassword": "very_secret"
+}
+
 ### Generate a new access token by updating @refreshToken parameter above
 POST http://localhost:5002/access-tokens/{{refreshToken}}/refresh
 content-type: application/json
