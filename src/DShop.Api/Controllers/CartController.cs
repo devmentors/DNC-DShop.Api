@@ -5,6 +5,7 @@ using DShop.Api.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using DShop.Api.Messages.Commands.Customers;
 using DShop.Common.Mvc;
 
 namespace DShop.Api.Controllers

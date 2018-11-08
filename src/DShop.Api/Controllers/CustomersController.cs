@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using DShop.Common.Mvc;
 using DShop.Api.Framework;
+using DShop.Api.Messages.Commands.Customers;
 
 namespace DShop.Api.Controllers
 {

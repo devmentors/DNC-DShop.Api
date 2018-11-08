@@ -3,13 +3,11 @@ WORKDIR /app
 
 ARG sln=DShop.Api.sln
 ARG api=src/DShop.Api
-ARG models=src/DShop.Api.Models
 ARG configuration=Release
 ARG feed='--source "https://api.nuget.org/v3/index.json" --source "https://www.myget.org/F/dnc-dshop/api/v3/index.json"'
 
 COPY ${sln} ./
 COPY ./${api} ./${api}/
-COPY ./${models} ./${models}/
 
 RUN dotnet restore /property:Configuration=${configuration} ${feed}
 

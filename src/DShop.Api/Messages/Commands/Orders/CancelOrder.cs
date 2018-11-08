@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using DShop.Common.Messages;
+using Newtonsoft.Json;
 
-namespace DShop.Api.Messages.Commands
+namespace DShop.Api.Messages.Commands.Orders
 {
     [MessageNamespace("orders")]
     public class CancelOrder : ICommand
