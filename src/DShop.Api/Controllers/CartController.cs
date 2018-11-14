@@ -32,7 +32,7 @@ namespace DShop.Api.Controllers
         public async Task<IActionResult> Delete(Guid productId)
             => await SendAsync(new DeleteProductFromCart(UserId, productId));
 
-        [HttpDelete("clear")]
+        [HttpDelete]
         public async Task<IActionResult> Clear()
             => await SendAsync(new ClearCart(UserId));
     }

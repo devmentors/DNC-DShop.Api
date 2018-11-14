@@ -47,7 +47,8 @@ content-type: application/json
 	"name": "My product",
 	"description": "My product description",
 	"vendor": "My company",
-	"price": 2500
+	"price": 2000,
+	"quantity": 10
 }
 
 ### Get products list
@@ -65,7 +66,8 @@ content-type: application/json
 {
 	"name": "My product updated",
 	"description": "My product updated description",
-	"price": 3500
+	"price": 3500,
+	"quantity": 15
 }
 
 ### Delete a product if needed
@@ -133,6 +135,10 @@ authorization: Bearer {{accessToken}}
 DELETE {{apiUrl}}/cart/items/{{productId}}
 authorization: Bearer {{accessToken}}
 
+### Clear cart
+DELETE {{apiUrl}}/cart
+authorization: Bearer {{accessToken}}
+
 ### Create a new order
 POST {{apiUrl}}/orders
 authorization: Bearer {{accessToken}}
@@ -150,7 +156,7 @@ GET {{apiUrl}}/orders/{{orderId}}
 authorization: Bearer {{accessToken}}
 
 ### Complete an order (only works for new orders with status "created")
-POST {{apiUrl}}/orders/{{orderId}}/complete
+POST {{apiUrl}}/orders/{{orderId}}
 authorization: Bearer {{accessToken}}
 content-type: application/json
 
