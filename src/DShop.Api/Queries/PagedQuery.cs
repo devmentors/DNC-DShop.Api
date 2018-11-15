@@ -1,6 +1,6 @@
 namespace DShop.Api.Queries
 {
-    public class PagedQuery
+    public abstract class PagedQuery
     {
         public int Page { get; set; }
         public int Results { get; set; }

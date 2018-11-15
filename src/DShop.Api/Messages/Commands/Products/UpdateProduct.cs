@@ -5,15 +5,15 @@ using Newtonsoft.Json;
 namespace DShop.Api.Messages.Commands.Products
 {
     [MessageNamespace("products")]
-	public class UpdateProduct : ICommand
-	{
+    public class UpdateProduct : ICommand
+    {
         public Guid Id { get; }
         public string Name { get; }
         public string Description { get; }
         public decimal Price { get; }
 
         [JsonConstructor]
-        public UpdateProduct(Guid id, string name, 
+        public UpdateProduct(Guid id, string name,
             string description, decimal price)
         {
             Id = id;
