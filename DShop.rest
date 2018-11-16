@@ -156,7 +156,7 @@ GET {{apiUrl}}/orders/{{orderId}}
 authorization: Bearer {{accessToken}}
 
 ### Complete an order (only works for new orders with status "created")
-POST {{apiUrl}}/orders/{{orderId}}
+POST {{apiUrl}}/orders/{{orderId}}/complete
 authorization: Bearer {{accessToken}}
 content-type: application/json
 
