@@ -27,6 +27,7 @@ namespace DShop.Api.Controllers
             => Collection(await _customersService.BrowseAsync(query));
 
         [HttpGet("{id}")]
+        [AdminAuth]
         public async Task<IActionResult> Get(Guid id)
             => Single(await _customersService.GetAsync(id), x => x.Id == UserId || IsAdmin);
 

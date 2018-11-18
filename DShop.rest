@@ -78,6 +78,10 @@ authorization: Bearer {{accessToken}}
 GET {{apiUrl}}/customers
 authorization: Bearer {{accessToken}}
 
+### Get a customer account details
+GET {{apiUrl}}/customers/{{customerId}}
+authorization: Bearer {{accessToken}}
+
 # ================= USER WORKFLOW ======================= #
 
 ### Sign up as user
@@ -112,10 +116,6 @@ content-type: application/json
 	"address": "My Street 01/02, My City",
 	"country": "My Country"
 }
-
-### Get your customer account details
-GET {{apiUrl}}/customers/{{customerId}}
-authorization: Bearer {{accessToken}}
 
 ### Add some products to your cart.
 POST {{apiUrl}}/cart/items
