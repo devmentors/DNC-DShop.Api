@@ -16,6 +16,10 @@ namespace DShop.Api.Services
         Task<OrderDetails> GetAsync([Path] Guid id);
 
         [AllowAnyStatusCode]
+        [Get("customers/{customerId}/orders/{orderId}")]
+        Task<OrderDetails> GetAsync([Path] Guid customerId, [Path] Guid orderId);
+
+        [AllowAnyStatusCode]
         [Get("orders")]
         Task<PagedResult<Order>> BrowseAsync([Query] BrowseOrders query);
     }

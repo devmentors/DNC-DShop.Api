@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using DShop.Api.Services;
 using DShop.Common.RabbitMq;
-using DShop.Api.Messages.Commands;
 using DShop.Api.Queries;
 using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,7 @@ namespace DShop.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => Single(await _ordersService.GetAsync(id), x => x.Customer.Id == UserId || IsAdmin);
+            => Single(IsAdmin ? await _ordersService.GetAsync(id) : await _ordersService.GetAsync(id, UserId));
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateOrder command)
