@@ -26,7 +26,7 @@ namespace DShop.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
-            => Single(IsAdmin ? await _ordersService.GetAsync(id) : await _ordersService.GetAsync(id, UserId));
+            => Single(IsAdmin ? await _ordersService.GetAsync(id) : await _ordersService.GetAsync(UserId, id));
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateOrder command)
