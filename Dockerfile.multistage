@@ -1,7 +1,7 @@
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /app
 COPY . .
-RUN dotnet publish src/DShop.Api -c Release -o out --source https://api.nuget.org/v3/index.json --source https://www.myget.org/F/dnc-dshop/api/v3/index.json
+RUN dotnet publish src/DShop.Api -c Release -o out
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app

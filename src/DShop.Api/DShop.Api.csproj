@@ -6,7 +6,7 @@
     <ProjectReference Include="..\..\..\DNC-DShop.Common\src\DShop.Common\DShop.Common.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="DShop.Common" Version="1.0.*" />
+    <PackageReference Include="DShop.Common_" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models" />
