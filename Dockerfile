@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
 WORKDIR /app
 COPY ./src/DShop.Api/bin/docker .
 ENV ASPNETCORE_URLS http://*:5000
