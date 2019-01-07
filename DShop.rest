@@ -170,11 +170,11 @@ authorization: Bearer {{accessToken}}
 # ================= IDENTITY SERVICE ======================= #
 
 ### Get your identity
-GET http://localhost:5002/me
+GET http://{{identityServiceUrl}}/me
 authorization: Bearer {{accessToken}}
 
 ### Change password
-PUT http://localhost:5002/me/password
+PUT http://{{identityServiceUrl}}/me/password
 authorization: Bearer {{accessToken}}
 content-type: application/json
 
@@ -184,14 +184,14 @@ content-type: application/json
 }
 
 ### Generate a new access token by updating @refreshToken parameter above
-POST http://localhost:5002/access-tokens/{{refreshToken}}/refresh
+POST http://{{identityServiceUrl}}/access-tokens/{{refreshToken}}/refresh
 content-type: application/json
 
 {
 }
 
 ### Revoke a current access token
-POST http://localhost:5002/access-tokens/revoke
+POST http://{{identityServiceUrl}}/access-tokens/revoke
 authorization: Bearer {{accessToken}}
 content-type: application/json
 
@@ -199,9 +199,31 @@ content-type: application/json
 }
 
 ### Revoke a current refresh token
-POST http://localhost:5002/refresh-tokens/{{refreshToken}}/revoke
+POST http://{{identityServiceUrl}}/refresh-tokens/{{refreshToken}}/revoke
 authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
 }
+
+### create discount
+POST {{apiUrl}}/discounts
+Content-Type: application/json
+
+{
+    "customerId": "502155bc-ad5e-45bc-badf-8609c500e620",
+    "code": "PROMO3",
+    "percentage": 25
+}
+
+###
+GET {{apiUrl}}/discounts?customerId=a45efd53-5db0-4be1-9062-7d93d935fe1f
+
+###
+GET {{apiUrl}}/discounts/eeedf2d5-0bd5-4124-b7d4-8fa933d89640
+
+###
+GET http://localhost:5010/discounts?customerId=a45efd53-5db0-4be1-9062-7d93d935fe1f
+
+###
+GET http://localhost:5010/discounts/eeedf2d5-0bd5-4124-b7d4-8fa933d89640

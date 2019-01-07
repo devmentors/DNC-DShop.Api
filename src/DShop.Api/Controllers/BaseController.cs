@@ -44,6 +44,22 @@ namespace DShop.Api.Controllers
             return NotFound();
         }
 
+        protected ActionResult<T> Result<T>(T model, Func<T, bool> criteria = null)
+        {
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            var isValid = criteria == null || criteria(model);
+            if (isValid)
+            {
+                return Ok(model);
+            }
+
+            return NotFound();
+        }
+
         protected IActionResult Collection<T>(PagedResult<T> pagedResult, Func<PagedResult<T>,bool> criteria = null)
         {
             if (pagedResult == null)

@@ -54,6 +54,7 @@ namespace DShop.Api
             services.RegisterServiceForwarder<ICustomersService>("customers-service");
             services.RegisterServiceForwarder<IOrdersService>("orders-service");
             services.RegisterServiceForwarder<IProductsService>("products-service");
+            services.RegisterServiceForwarder<IDiscountsService>("discounts-service");
             
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
