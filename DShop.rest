@@ -1,11 +1,10 @@
 @apiUrl = http://localhost:5000
 @identityServiceUrl = http://localhost:5002
 @accessToken = xxxxxxxxxxxxxxxxxx
-@refreshToken = xxxxxxxxxxxxxxxxxx
 @operationId = xxxxxxxxxxxxxxxxxx
-@productId = xxxxxxxxxxxxxxxxxx
-@customerId = xxxxxxxxxxxxxxxxxx
-@orderId = xxxxxxxxxxxxxxxxxx
+@productId = 9121e115-7605-45d0-aef5-02b174e84b17
+@customerId = 127766da-fce1-4e78-aecd-bac83ebae21a
+@orderId = 04fdd35e-e1ee-4658-b33b-59126d57a7e0
 
 # ================= OPERATION DETAILS ======================= #
 

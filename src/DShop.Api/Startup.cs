@@ -9,6 +9,7 @@ using DShop.Common;
 using DShop.Common.Authentication;
 using DShop.Common.Consul;
 using DShop.Common.Dispatchers;
+using DShop.Common.Jaeger;
 using DShop.Common.Mvc;
 using DShop.Common.RabbitMq;
 using DShop.Common.Redis;
@@ -39,6 +40,8 @@ namespace DShop.Api
             services.AddSwaggerDocs();
             services.AddConsul();
             services.AddJwt();
+            services.AddJaeger();
+            services.AddOpenTracing();
             services.AddRedis();
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddCors(options =>
