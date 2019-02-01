@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using OpenTracing;
 
 namespace DShop.Api.Controllers
 {
@@ -14,8 +15,8 @@ namespace DShop.Api.Controllers
     {
         private readonly IOperationsService _operationsService;
 
-        public OperationsController(IBusPublisher busPublisher,
-            IOperationsService operationsService) : base(busPublisher)
+        public OperationsController(IBusPublisher busPublisher,  ITracer tracer,
+            IOperationsService operationsService) : base(busPublisher, tracer)
         {
             _operationsService = operationsService;
         }

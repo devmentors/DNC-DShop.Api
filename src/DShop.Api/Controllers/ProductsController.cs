@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DShop.Common.Mvc;
 using DShop.Api.Framework;
 using DShop.Api.Messages.Commands.Products;
+using OpenTracing;
 
 namespace DShop.Api.Controllers
 {
@@ -18,8 +19,8 @@ namespace DShop.Api.Controllers
     {
         private readonly IProductsService _productsService;
 
-        public ProductsController(IBusPublisher busPublisher, 
-            IProductsService productsService) : base(busPublisher)
+        public ProductsController(IBusPublisher busPublisher, ITracer tracer, 
+            IProductsService productsService) : base(busPublisher, tracer)
         {
             _productsService = productsService;
         }

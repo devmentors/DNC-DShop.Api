@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DShop.Common.Mvc;
 using DShop.Api.Framework;
 using DShop.Api.Messages.Commands.Customers;
+using OpenTracing;
 
 namespace DShop.Api.Controllers
 {
@@ -15,8 +16,8 @@ namespace DShop.Api.Controllers
     {
         private readonly ICustomersService _customersService;
 
-        public CustomersController(IBusPublisher busPublisher,
-            ICustomersService customersService) : base(busPublisher)
+        public CustomersController(IBusPublisher busPublisher, ITracer tracer,
+            ICustomersService customersService) : base(busPublisher, tracer)
         {
             _customersService = customersService;
         }

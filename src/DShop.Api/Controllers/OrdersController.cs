@@ -7,6 +7,7 @@ using DShop.Common.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using DShop.Api.Framework;
 using DShop.Api.Messages.Commands.Orders;
+using OpenTracing;
 
 namespace DShop.Api.Controllers
 {
@@ -14,8 +15,8 @@ namespace DShop.Api.Controllers
     {
         private readonly IOrdersService _ordersService;
 
-        public OrdersController(IBusPublisher busPublisher,
-            IOrdersService ordersService) : base(busPublisher)
+        public OrdersController(IBusPublisher busPublisher, ITracer tracer,
+            IOrdersService ordersService) : base(busPublisher, tracer)
         {
             _ordersService = ordersService;
         }

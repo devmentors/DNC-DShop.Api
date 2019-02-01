@@ -1,6 +1,6 @@
 @apiUrl = http://localhost:5000
 @identityServiceUrl = http://localhost:5002
-@accessToken = xxxxxxxxxxxxxxxxxx
+@accessToken = yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YTdiNzRkOWJhYjM0NTA0OTJjMmMzMDhmNDA1NDhlOCIsInVuaXF1ZV9uYW1lIjoiNGE3Yjc0ZDliYWIzNDUwNDkyYzJjMzA4ZjQwNTQ4ZTgiLCJqdGkiOiIyMzhiN2YwZC1jMzNhLTRiMGEtOTljNC0wNmFjODBhZDZiZDQiLCJpYXQiOiIxNTQ5MDM0MTE2OTg4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NDkwMzQxMTYsImV4cCI6MTU0OTAzNTkxNiwiaXNzIjoiZHNob3AtaWRlbnRpdHktc2VydmljZSJ9.tQjdtphw3cu7JRGoXAa5PRSNHNFlRAe5gi3pHUhXPdM
 @operationId = xxxxxxxxxxxxxxxxxx
 @productId = 9121e115-7605-45d0-aef5-02b174e84b17
 @customerId = 127766da-fce1-4e78-aecd-bac83ebae21a
@@ -43,7 +43,7 @@ authorization: Bearer {{accessToken}}
 content-type: application/json
 
 {
-	"name": "My product",
+	"name": "My productwww2",
 	"description": "My product description",
 	"vendor": "My company",
 	"price": 2000,

@@ -9,6 +9,7 @@ using DShop.Common.Types;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OpenTracing;
 
 namespace DShop.Api.Controllers
 {
@@ -23,10 +24,12 @@ namespace DShop.Api.Controllers
         private static readonly string DefaultCulture = "en-us";
         private static readonly string PageLink = "page";
         private readonly IBusPublisher _busPublisher;
+        private readonly ITracer _tracer;
 
-        public BaseController(IBusPublisher busPublisher)
+        protected BaseController(IBusPublisher busPublisher, ITracer tracer)
         {
             _busPublisher = busPublisher;
+            _tracer = tracer;
         }
 
         protected IActionResult Single<T>(T model, Func<T,bool> criteria = null)
@@ -93,7 +96,7 @@ namespace DShop.Api.Controllers
             }
 
             return CorrelationContext.Create<T>(Guid.NewGuid(), UserId, resourceId ?? Guid.Empty, 
-               HttpContext.TraceIdentifier, HttpContext.Connection.Id, 
+               HttpContext.TraceIdentifier, HttpContext.Connection.Id, _tracer.ActiveSpan.Context.ToString(),
                Request.Path.ToString(), Culture, resource);
         }
 
