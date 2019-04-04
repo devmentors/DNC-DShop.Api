@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DShop.Common.Mvc;
 using DShop.Api.Framework;
 using DShop.Api.Messages.Commands.Products;
+using DShop.Api.Metrics;
 using OpenTracing;
 
 namespace DShop.Api.Controllers
@@ -27,6 +28,7 @@ namespace DShop.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Metric(Metric.GetProductsQuery)]
         public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
             => Collection(await _productsService.BrowseAsync(query));
 

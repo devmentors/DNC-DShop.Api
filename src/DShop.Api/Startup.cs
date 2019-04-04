@@ -4,6 +4,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Consul;
+using DShop.Api.Metrics;
 using DShop.Api.Services;
 using DShop.Common;
 using DShop.Common.Authentication;
@@ -57,6 +58,7 @@ namespace DShop.Api
             services.RegisterServiceForwarder<ICustomersService>("customers-service");
             services.RegisterServiceForwarder<IOrdersService>("orders-service");
             services.RegisterServiceForwarder<IProductsService>("products-service");
+            services.AddTransient<ICustomMetricsRegistry, CustomMetricsRegistry>();
             
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
