@@ -1,9 +1,9 @@
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk AS build
 WORKDIR /app
 COPY . .
 RUN dotnet publish src/DShop.Api -c Release -o out
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 COPY --from=build /app/src/DShop.Api/out .
 ENV ASPNETCORE_URLS http://*:5000

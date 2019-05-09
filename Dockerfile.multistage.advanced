@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk AS build
 WORKDIR /app
 
 ARG sln=DShop.Api.sln
@@ -14,7 +14,7 @@ RUN dotnet restore /property:Configuration=${configuration} ${feed}
 COPY . ./
 RUN dotnet publish ${api} -c ${configuration} -o out ${feed}
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 
 ARG api=src/DShop.Api
